@@ -23,7 +23,11 @@ export class SidenavComponent {
   readonly loggedInUser = computed(() => this.authService.loggedInUser?.());
 
   logout(): void {
-    this.layoutService.closeDrawer();
+    this.closeDrawer()
     this.authService.logout();
+  }
+
+  closeDrawer(): void {
+    this.layoutService.closeDrawer();
   }
 }

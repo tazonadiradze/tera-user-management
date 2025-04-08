@@ -1,3 +1,24 @@
 table {
   width: 100%;
 }
+.mat-column-id, .mat-column-email, .mat-column-role {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .mat-column-email {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 800px) {
+  .mat-column-role {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1000px) {
+  .mat-column-id {
+    display: table-cell;
+  }
+}

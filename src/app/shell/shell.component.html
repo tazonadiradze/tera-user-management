@@ -1,6 +1,11 @@
 <mat-sidenav-container class="shell-container">
-  <mat-sidenav #drawer mode="side">
-  <app-sidenav></app-sidenav>
+  <mat-sidenav
+    #drawer
+    [mode]="sidenavMode()"
+    [opened]="sidenavOpened()"
+    class="custom-sidenav"
+  >
+    <app-sidenav></app-sidenav>
   </mat-sidenav>
 
   <mat-sidenav-content>

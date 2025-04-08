@@ -16,6 +16,7 @@
       routerLink="/shell/home"
       routerLinkActive="text-[#9f216d] font-semibold"
       class="flex items-center gap-2 px-3 py-2 hover:bg-[#fce8f1] transition rounded"
+      (click)="closeDrawer()"
     >
       <mat-icon class="align-middle text-base leading-none">home</mat-icon>
       <span class="text-sm leading-none">Home</span>
@@ -25,6 +26,7 @@
       routerLink="/shell/adduser"
       routerLinkActive="text-[#9f216d] font-semibold"
       class="flex items-center gap-2 px-3 py-2 hover:bg-[#fce8f1] transition rounded"
+      (click)="closeDrawer()"
     >
       <mat-icon class="align-middle text-base leading-none">person_add</mat-icon>
       <span class="text-sm leading-none">Add User</span>

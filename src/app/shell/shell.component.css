@@ -4,11 +4,19 @@
 .content {
   flex: 1 1 auto;
   overflow: auto;
-  padding: 16px; /* optional */
+  padding: 16px;
 }
 
 mat-sidenav-content {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.mat-drawer {
+  border-radius: 0 !important;
+}
+
+.custom-sidenav {
+  @apply !w-[220px];
 }
