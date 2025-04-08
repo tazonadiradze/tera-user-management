@@ -32,9 +32,11 @@ export class UsersListComponent implements OnInit {
   }
 
   getUsersList(): void {
-    this.userService.getUsers().subscribe((users: User[]): void => this.users.set(users));
+    this.userService.getUsers().subscribe({
+      next: (users: User[]) => this.users.set(users),
+      error: () => this.snackBar.open('Failed to load user list', 'Close', { duration: 3000 })
+    });
   }
-
   editUser(user: User): void {
     const dialogRef: MatDialogRef<EditUserDialogComponent> = this.dialog.open(EditUserDialogComponent, {
       width: '400px',
@@ -47,13 +49,13 @@ export class UsersListComponent implements OnInit {
       if (!result) return;
 
       this.userService.updateUser(result).subscribe({
-        next: () => {
+        next: ():void => {
           this.users.update(users =>
             users.map(u => (u.id === result.id ? result : u))
           );
           this.snackBar.open('User updated successfully', 'Close', { duration: 3000 });
         },
-        error: () => {
+        error: ():void => {
           this.snackBar.open('Failed to update user', 'Close', { duration: 3000 });
         }
       });
@@ -73,10 +75,17 @@ export class UsersListComponent implements OnInit {
   }
 
 
-  viewUserDetails(user: User) {
-    this.router.navigate(['shell/user-details', user.id]);
-
+  viewUserDetails(user: User): void {
+    this.router.navigate(['shell/user-details', user.id]).then(success => {
+      if (success) {
+        this.snackBar.open(`Navigated to ${user.username}'s profile 👤`, 'Close', { duration: 3000 });
+      } else {
+        this.snackBar.open(`Failed to navigate to ${user.username}'s profile`, 'Close', { duration: 3000 });
+      }
+    });
   }
+
+
 }
 
 

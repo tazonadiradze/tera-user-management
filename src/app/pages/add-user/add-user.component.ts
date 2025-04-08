@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import {UserService} from '../../core/services/user.service';
 import {MatDialogTitle} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-user',
@@ -26,9 +27,10 @@ import {MatDialogTitle} from '@angular/material/dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddUserComponent {
-  private fb = inject(FormBuilder);
-  private userService = inject(UserService);
-  private router = inject(Router);
+  private fb :FormBuilder = inject(FormBuilder);
+  private userService :UserService = inject(UserService);
+  private router:Router = inject(Router);
+  private snackBar:MatSnackBar = inject(MatSnackBar);
 
   form: FormGroup = this.fb.group({
     username: ['', Validators.required],
@@ -40,11 +42,18 @@ export class AddUserComponent {
   onSubmit(): void {
     if (this.form.valid) {
       this.userService.addUser(this.form.value).subscribe({
-        next: () => this.router.navigate(['/shell/home']),
-        error: (err) => console.error('Add user failed', err),
+        next: () => {
+          this.snackBar.open('User added successfully 🎉', 'Close', { duration: 3000 });
+          this.router.navigate(['/shell/home']);
+        },
+        error: (err) => {
+          console.error('Add user failed', err);
+          this.snackBar.open('Failed to add user 😢', 'Close', { duration: 3000 });
+        },
       });
     } else {
       this.form.markAllAsTouched();
+      this.snackBar.open('Please fill in all required fields', 'Close', { duration: 3000 });
     }
   }
 }

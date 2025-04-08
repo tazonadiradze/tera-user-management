@@ -8,8 +8,6 @@ import {
   MatCardAvatar,
   MatCardContent,
   MatCardHeader,
-  MatCardSubtitle,
-  MatCardTitle
 } from '@angular/material/card';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {MatIcon} from '@angular/material/icon';
@@ -51,6 +49,6 @@ export class UserDetailsComponent implements OnInit {
 
   }
   goBack() {
-    history.back(); // or use router.navigate if needed
+    history.back();
   }
 }
