@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewChild} from '@angular/core';
 import {AuthFormComponent} from '../../shared/auth-form/auth-form.component';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {AuthService} from '../../core/services/auth.service';
@@ -13,26 +13,25 @@ import {Router} from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class AuthComponent implements OnInit {
+export class AuthComponent {
 
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router)
+  @ViewChild('tabGroup') tabGroup!: MatTabGroup;
 
   onSignin(value: AuthFormValue): void {
     this.authService.login(value).subscribe((user: LoginSuccessResponse) => {
-      // ✅ First: set user, token, role, etc.
       this.authService.setUserAfterLogin(user);
 
-      // ✅ Then: navigate
       this.router.navigate(['/shell/home']);
     });
   }
 
 
-  onSignUp(value: AuthFormValue):void {
-    this.authService.register(value).subscribe()
+  onSignUp(value: AuthFormValue): void {
+    this.authService.register(value).subscribe(() => {
+      this.tabGroup.selectedIndex = 0;
+    })
   }
 
-  ngOnInit(): void {
-  }
 }

@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import {AuthService} from '../../core/services/auth.service';
+import {LayoutService} from '../../core/services/layout.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -16,10 +17,13 @@ import {AuthService} from '../../core/services/auth.service';
 })
 export class SidenavComponent {
   private authService:AuthService = inject(AuthService);
+  private layoutService = inject(LayoutService);
+
   readonly currentRole:Signal<string|null> = computed(():string|null => this.authService.currentRole());
   readonly loggedInUser = computed(() => this.authService.loggedInUser?.());
 
   logout(): void {
+    this.layoutService.closeDrawer();
     this.authService.logout();
   }
 }
