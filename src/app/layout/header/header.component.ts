@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, Component, computed, EventEmitter, inject, Output, Signal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  EventEmitter,
+  inject,
+  Output,
+  Signal,
+} from '@angular/core';
 import {MatIcon} from '@angular/material/icon';
 import {MatToolbar} from '@angular/material/toolbar';
 import {MatButton, MatIconButton} from '@angular/material/button';

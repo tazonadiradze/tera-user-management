@@ -1,57 +1,74 @@
 import {inject, Injectable, signal, WritableSignal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {User} from '../models/user.model';
+import {Router} from '@angular/router';
 import {
   AuthFormValue,
   LoginSuccessResponse,
   RegisterErrorResponse,
   RegisterSuccessResponse
 } from '../models/auth.model';
-import {Router} from '@angular/router';
 
-@Injectable({
-  providedIn: 'root'
-})
-
+@Injectable({providedIn: 'root'})
 export class AuthService {
-  baseUrl: string = 'http://localhost:3000/';
+  readonly baseUrl: string = 'http://localhost:3000/';
+  readonly token: WritableSignal<string> = signal('');
+  readonly isLoggedIn: WritableSignal<boolean> = signal(!!localStorage.getItem('token'));
+  readonly currentRole: WritableSignal<string | null> = signal(null);
+  readonly loggedInUser: WritableSignal<LoginSuccessResponse | null> = signal(null);
+  private readonly http :HttpClient = inject(HttpClient);
+  private readonly router :Router = inject(Router);
 
-  http: HttpClient = inject(HttpClient)
-  router: Router = inject(Router)
+  restoreUserSession(): void {
+    const token: string | null = localStorage.getItem('token');
+    const userRaw: string | null = localStorage.getItem('user');
 
-  isLoggedIn: WritableSignal<boolean> = signal<boolean>(!!localStorage.getItem('token'));
-  role:WritableSignal<string|null> = signal<string|null>(null);
-  loggedInUser: WritableSignal<LoginSuccessResponse | null> = signal(null);
+    if (token && userRaw) {
+      this.token.set(token);
 
-  setUserPermissionsFromLogin(user: LoginSuccessResponse): void {
-    this.role.set(user.role);
-    this.loggedInUser.set(user);
-
+      const parsedUser: LoginSuccessResponse = JSON.parse(userRaw);
+      this.loggedInUser.set(parsedUser);
+      this.currentRole.set(parsedUser.role);
+    }
   }
-  setLoggedIn(status: boolean):void {
-    this.isLoggedIn.set(status);
-  }
+
 
   login(payload: AuthFormValue): Observable<LoginSuccessResponse> {
     return this.http.post<LoginSuccessResponse>(this.baseUrl + 'login', payload);
-  }
-
-  saveToken(token: string): void {
-    localStorage.setItem('token', token);
-  }
-
-  logout(): void {
-    localStorage.removeItem('token');
-    this.router.navigate(['/shell/auth']).then((success: boolean): void => {
-      if (success) {
-        this.isLoggedIn.set(false);
-      }
-    });
   }
 
   register(payload: AuthFormValue): Observable<RegisterSuccessResponse | RegisterErrorResponse> {
     return this.http.post<RegisterSuccessResponse | RegisterErrorResponse>(this.baseUrl + 'register', payload);
   }
 
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    this.token.set('');
+    this.loggedInUser.set(null);
+    this.currentRole.set(null);
+    this.isLoggedIn.set(false);
+
+    this.router.navigate(['/shell/auth']);
+  }
+
+  setUserAfterLogin(user: LoginSuccessResponse): void {
+    this.token.set(user.token);
+    this.loggedInUser.set(user);
+    this.currentRole.set(user.role);
+    this.isLoggedIn.set(true);
+
+    localStorage.setItem('token', user.token);
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  setUserPermissionsFromLogin(user: LoginSuccessResponse): void {
+    this.currentRole.set(user.role);
+    this.loggedInUser.set(user);
+  }
+
+  setLoggedIn(status: boolean): void {
+    this.isLoggedIn.set(status);
+  }
 }

@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {ShellComponent} from './shell/shell.component';
+import {AuthService} from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ShellComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'tera-task';
+  private authService: AuthService = inject(AuthService);
+
+  ngOnInit(): void {
+    this.authService.restoreUserSession();
+  }
 }

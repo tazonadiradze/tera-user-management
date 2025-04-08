@@ -18,18 +18,16 @@ export class AuthComponent implements OnInit {
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router)
 
-  onSignin(value: AuthFormValue):void {
-    this.authService.login(value).subscribe((loginResponse: LoginSuccessResponse) => {
-      this.router.navigate(['/shell/home']).then((success: boolean): void => {
-        if(success) {
-          this.authService.saveToken(loginResponse.token)
-          this.authService.setLoggedIn(true);
-          this.authService.setUserPermissionsFromLogin(loginResponse);
+  onSignin(value: AuthFormValue): void {
+    this.authService.login(value).subscribe((user: LoginSuccessResponse) => {
+      // ✅ First: set user, token, role, etc.
+      this.authService.setUserAfterLogin(user);
 
-        }
-      });
-    })
+      // ✅ Then: navigate
+      this.router.navigate(['/shell/home']);
+    });
   }
+
 
   onSignUp(value: AuthFormValue):void {
     this.authService.register(value).subscribe()

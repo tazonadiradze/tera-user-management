@@ -23,7 +23,7 @@ export class EditUserDialogComponent implements OnInit {
   user: User = inject<User>(MAT_DIALOG_DATA);
   form!: FormGroup;
   private authService: AuthService = inject(AuthService);
-  readonly isAdmin: Signal<boolean> = computed((): boolean => this.authService.role() === 'admin');
+  readonly isAdmin: Signal<boolean> = computed((): boolean => this.authService.currentRole() === 'admin');
   private dialogRef: MatDialogRef<EditUserDialogComponent> = inject(MatDialogRef<EditUserDialogComponent>);
   private fb: FormBuilder = inject(FormBuilder);
 
