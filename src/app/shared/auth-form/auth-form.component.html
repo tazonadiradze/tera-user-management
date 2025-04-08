@@ -1,0 +1,57 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form" class="flex flex-col gap-2">
+@if (mode() === 'signup') {
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username"/>
+      @if (form.get('username')?.hasError('required')) {
+        <mat-error>
+          Username is required
+        </mat-error>
+      }
+    </mat-form-field>
+  }
+
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Email</mat-label>
+    <input formControlName="email" matInput/>
+    @if (form.get('email')?.hasError('required')) {
+      <mat-error>
+        Email is required
+      </mat-error>
+    }
+    @if (form.get('email')?.hasError('email')) {
+      <mat-error>
+        Invalid email
+      </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Password</mat-label>
+    <input formControlName="password" matInput type="password"/>
+    @if (form.get('password')?.hasError('required')) {
+      <mat-error>
+        Password is required
+      </mat-error>
+    }
+    @if (form.get('password')?.hasError('minlength')) {
+      <mat-error>
+        Minimum 6 characters
+      </mat-error>
+    }
+
+  </mat-form-field>
+
+  <button [disabled]="loading() || form.invalid" color="primary" mat-flat-button>
+    {{ mode() === 'signin' ? 'Sign In' : 'Sign Up' }}
+    @if (loading()) {
+      <mat-progress-spinner
+        diameter="20"
+        mode="indeterminate"
+        class="ml-2"
+      ></mat-progress-spinner>
+    }
+
+  </button>
+</form>

@@ -1,0 +1,16 @@
+<div class="flex justify-center">
+  <div class="bg-white rounded-lg shadow w-full sm:max-w-xs md:max-w-sm lg:max-w-md p-8">
+    <mat-tab-group>
+      <mat-tab label="Sign In">
+        <div class="py-12 px-8 flex justify-center w-full">
+          <app-auth-form mode="signin" (submitForm)="onSignin($event)"></app-auth-form>
+        </div>
+      </mat-tab>
+      <mat-tab label="Sign Up">
+        <div class="py-12 px-8 flex justify-center w-full">
+          <app-auth-form mode="signup" (submitForm)="onSignUp($event)"></app-auth-form>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

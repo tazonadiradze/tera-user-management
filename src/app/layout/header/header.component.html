@@ -1,0 +1,14 @@
+<mat-toolbar style="background: #9f216d; justify-content: space-between">
+  @if(isLoggedIn()){
+  <div>
+    <button mat-icon-button (click)="onMenuClick()" style="color: white" aria-label="Toggle menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
+  <button mat-button (click)="logout()" style="color: white">
+    <mat-icon>logout</mat-icon>
+    Logout
+  </button>
+}
+</mat-toolbar>

@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@example.com",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": 1743879836574,
+      "username": "tazonadiradze",
+      "email": "dasdsad@gmail.com",
+      "password": "12345678",
+      "role": "user"
+    },
+    {
+      "id": 1743880243000,
+      "username": "tamaznadiradze",
+      "email": "tamaznadiradze@gmail.com",
+      "password": "tazotazo",
+      "role": "user"
+    },
+    {
+      "username": "Tamazi",
+      "email": "tamazi@gmail.com",
+      "password": "tamazi",
+      "role": "user",
+      "id": 1743880404470
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "T-Shirt",
+      "price": 25
+    },
+    {
+      "id": 2,
+      "name": "Sneakers",
+      "price": 80
+    }
+  ]
+}

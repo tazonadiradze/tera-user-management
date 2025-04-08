@@ -1,0 +1,45 @@
+<nav class="flex flex-col h-full bg-white shadow-sm">
+
+  <!-- Header -->
+  <div class="h-16 flex items-center justify-center bg-[#9f216d] text-white font-semibold text-lg shadow-sm">
+  </div>
+
+  <!-- Navigation -->
+  <div class="flex-1 p-4 space-y-1">
+    <a
+      routerLink="/shell/home"
+      routerLinkActive="text-[#9f216d] font-semibold"
+      class="flex items-center gap-2 px-3 py-2  hover:bg-[#fce8f1] transition"
+    >
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </a>
+
+    <a
+      routerLink="/shell/adduser"
+      routerLinkActive="text-[#9f216d] font-semibold"
+      class="flex items-center gap-2 px-3 py-2 rounded hover:bg-[#fce8f1] transition"
+    >
+      <mat-icon>person_add</mat-icon>
+      <span>Add User</span>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <div class="p-4 border-t text-sm text-gray-600">
+<!--    <p class="mb-2">-->
+<!--      You are logged in as <strong class="text-[#9f216d]">{{ loggedInUser()?.username | titlecase }}</strong>-->
+<!--    </p>-->
+<!--    <p class="mb-2">-->
+<!--      Your role is <strong class="text-[#9f216d]">{{ role() | titlecase }}</strong>-->
+<!--    </p>-->
+    <button
+      mat-stroked-button
+      (click)="logout()"
+      class="w-full border-[#9f216d] text-[#9f216d] hover:bg-[#fce8f1] transition"
+    >
+      <mat-icon>logout</mat-icon>
+      <span class="ml-2">Logout</span>
+    </button>
+  </div>
+</nav>

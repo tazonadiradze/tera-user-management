@@ -1,0 +1,62 @@
+@if (userDetails(); as user) {
+  <mat-card class="max-w-md w-full mx-auto mt-12 shadow-lg">
+    <mat-card-header class="items-center">
+      <div mat-card-avatar class="bg-blue-100 text-blue-700 rounded-full flex items-center justify-center w-12 h-12">
+        <mat-icon class="text-xl">person</mat-icon>
+      </div>
+      <div class="ml-4">
+        <div class="text-base font-medium leading-tight text-gray-900">
+          {{ user.username | titlecase }}
+        </div>
+        <div class="text-xs text-gray-500 tracking-wide uppercase mt-0.5">
+          {{ user.role }}
+        </div>
+      </div>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content class="space-y-3 mt-4">
+      <div class="flex items-center justify-between">
+        <span class="flex items-center gap-2 text-gray-600">
+          <mat-icon class="text-sm">email</mat-icon>
+          <span class="font-medium">Email:</span>
+        </span>
+        <span>{{ user.email }}</span>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <span class="flex items-center gap-2 text-gray-600">
+          <mat-icon class="text-sm">badge</mat-icon>
+          <span class="font-medium">User ID:</span>
+        </span>
+        <span>{{ user.id }}</span>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <span class="flex items-center gap-2 text-gray-600">
+          <mat-icon class="text-sm">person_outline</mat-icon>
+          <span class="font-medium">Username:</span>
+        </span>
+        <span>{{ user.username }}</span>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <span class="flex items-center gap-2 text-gray-600">
+          <mat-icon class="text-sm text-green-700">check_circle</mat-icon>
+          <span class="font-medium">Status:</span>
+        </span>
+        <span class="font-mono text-sm text-green-800">Active</span>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="mt-6 flex justify-end">
+      <button mat-flat-button color="primary" (click)="goBack()">Back</button>
+    </mat-card-actions>
+  </mat-card>
+} @else {
+  <div class="text-center mt-10">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    <p class="text-gray-600 mt-4">Loading user details...</p>
+  </div>
+}

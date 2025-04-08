@@ -1,0 +1,26 @@
+.footer-toolbar {
+  background-color: #9f216d;
+  color: white;
+  padding: 0 16px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-content {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  font-size: 14px;
+}
+
+.footer-right a {
+  color: white;
+  margin-left: 8px;
+}
