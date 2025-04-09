@@ -11,27 +11,39 @@
     />
   </header>
 
-
+  <!-- 🔗 Navigation -->
   <nav class="flex-1 p-4 space-y-1" aria-label="Main Navigation">
-    <a
-      routerLink="/shell/home"
-      routerLinkActive="text-[#9f216d] font-semibold"
-      class="flex items-center gap-2 px-3 py-2 hover:bg-[#fce8f1] transition rounded"
-      (click)="closeDrawer()"
+    <!-- Home -->
+    <button
+      mat-button
+      (click)="navigate('/shell/home'); closeDrawer()"
+      class="sidebar-button w-full px-3 py-2 transition rounded hover:bg-[#fce8f1] text-left"
     >
-      <mat-icon class="align-middle text-base leading-none">home</mat-icon>
-      <span class="text-sm leading-none">Home</span>
-    </a>
+  <span class="flex items-center justify-start gap-2 w-full">
+    <mat-icon class="text-base">home</mat-icon>
+    <span class="text-sm">Home</span>
+  </span>
+    </button>
 
-    <a
-      routerLink="/shell/adduser"
-      routerLinkActive="text-[#9f216d] font-semibold"
-      class="flex items-center gap-2 px-3 py-2 hover:bg-[#fce8f1] transition rounded"
-      (click)="closeDrawer()"
+    <div
+      matTooltip="Only accessible to admins"
+      [matTooltipDisabled]="isAdmin()"
+      class="w-full"
     >
-      <mat-icon class="align-middle text-base leading-none">person_add</mat-icon>
-      <span class="text-sm leading-none">Add User</span>
-    </a>
+      <button
+        mat-button
+        [disabled]="!isAdmin()"
+        (click)="navigate('/shell/adduser'); closeDrawer()"
+        class="sidebar-button w-full px-3 py-2 transition rounded text-left hover:bg-[#fce8f1]"
+      >
+    <span class="flex items-center justify-start gap-2 w-full">
+      <mat-icon class="text-base">person_add</mat-icon>
+      <span class="text-sm">Add User</span>
+    </span>
+      </button>
+    </div>
+
+
   </nav>
 
   <footer class="p-4 text-sm text-gray-600 text-center">

@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, signal, ViewChild, WritableSignal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component, computed,
+  inject,
+  OnInit,
+  Signal,
+  signal,
+  ViewChild,
+  WritableSignal
+} from '@angular/core';
 import {User} from '../../../core/models/user.model';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
@@ -9,21 +18,27 @@ import {UserService} from '../../../core/services/user.service';
 import {EditUserDialogComponent} from './edit-user-dialog/edit-user-dialog.component';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {AuthService} from '../../../core/services/auth.service';
+import {MatTooltip} from '@angular/material/tooltip';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-users-list',
-  imports: [MatTableModule, MatSortModule, MatIcon, MatIconButton],
+  imports: [MatTableModule, MatSortModule, MatIcon, MatIconButton, MatTooltip, NgClass],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersListComponent implements OnInit {
   userService: UserService = inject(UserService);
+  authService: AuthService = inject(AuthService);
+
   router: Router = inject(Router)
   dialog: MatDialog = inject(MatDialog)
   private snackBar:MatSnackBar = inject(MatSnackBar);
 
   users: WritableSignal<User[]> = signal([])
+  readonly isAdmin:Signal<boolean> = computed(():boolean => this.authService.currentRole()==='admin');
   @ViewChild(MatSort) sort!: MatSort;
   displayedColumns: WritableSignal<string[]> = signal(['id', 'username', 'email', 'role', 'actions']);
 
