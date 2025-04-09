@@ -10,7 +10,12 @@ import {
   signal,
 } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {MatDrawer, MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
+import {
+  MatDrawer,
+  MatSidenav,
+  MatSidenavContainer,
+  MatSidenavContent,
+} from '@angular/material/sidenav';
 import {HeaderComponent} from '../layout/header/header.component';
 import {FooterComponent} from '../layout/footer/footer.component';
 import {SidenavComponent} from '../layout/sidenav/sidenav.component';
@@ -26,7 +31,7 @@ import {LayoutService} from '../core/services/layout.service';
     MatSidenavContent,
     MatSidenav,
     MatSidenavContainer,
-    SidenavComponent
+    SidenavComponent,
   ],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.css',
@@ -39,10 +44,10 @@ export class ShellComponent implements OnInit, AfterViewInit {
 
   readonly isMobile = signal(window.innerWidth < 768);
   readonly sidenavMode = computed(() => this.isMobile() ? 'over' : 'side');
-  readonly sidenavOpened = computed(() => !this.isMobile());
+  readonly sidenavOpened = signal(false); // Always start closed
 
   ngOnInit(): void {
-    this.updateScreenSize(); // initialize on first load
+    this.handleResize();
   }
 
   ngAfterViewInit(): void {
@@ -50,7 +55,15 @@ export class ShellComponent implements OnInit, AfterViewInit {
   }
 
   @HostListener('window:resize')
-  updateScreenSize() {
-    this.isMobile.set(window.innerWidth < 768);
+  handleResize() {
+    const wasMobile = this.isMobile();
+    const nowMobile = window.innerWidth < 768;
+    this.isMobile.set(nowMobile);
+
+    if (nowMobile && !wasMobile && this.drawer.opened) {
+      this.drawer.close();
+    }
+
+
   }
 }

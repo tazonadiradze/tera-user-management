@@ -93,15 +93,19 @@ server.use("/products", (req, res, next) => {
   }
 
   const role = authHeader.replace("Bearer fake-jwt-token-", "");
-  if (role !== "admin") {
-    return res.status(403).json({ message: "Forbidden: Admins only" });
-  }
+  // if (role !== "admin") {
+  //   return res.status(403).json({ message: "Forbidden: Admins only" });
+  // }
 
   next();
 });
 // get users
-
 server.use("/users", (req, res, next) => {
+  // ✅ Allow all GET requests (no auth required at all)
+  if (req.method === "GET") {
+    return next();
+  }
+
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer fake-jwt-token-")) {
@@ -109,9 +113,10 @@ server.use("/users", (req, res, next) => {
   }
 
   const role = authHeader.replace("Bearer fake-jwt-token-", "");
-  if (role !== "admin") {
-    return res.status(403).json({ message: "Forbidden: Admins only" });
-  }
+
+  // if (role !== "admin") {
+  //   return res.status(403).json({ message: "Forbidden: Admins only" });
+  // }
 
   next();
 });
