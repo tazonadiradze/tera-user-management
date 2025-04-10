@@ -2,10 +2,8 @@ import { Routes } from '@angular/router';
 import { ShellComponent } from './shell/shell.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { HomeComponent } from './pages/home/home.component';
-import { AddUserComponent } from './pages/add-user/add-user.component';
 import {authGuard} from './core/guards/auth.guard';
 import {UserDetailsComponent} from './pages/home/users-list/user-details/user-details.component';
-import {SettingsComponent} from './pages/settings/settings.component';
 
 export const routes: Routes = [
   {
