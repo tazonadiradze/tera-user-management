@@ -16,7 +16,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class HeaderComponent {
   @Output() toggleDrawer: EventEmitter<void> = new EventEmitter<void>();
-  authService: AuthService = inject(AuthService);
+
+  private authService: AuthService = inject(AuthService);
   readonly isLoggedIn: Signal<boolean> = computed((): boolean => this.authService.isLoggedIn());
   private layoutService: LayoutService = inject(LayoutService);
   private snackBar: MatSnackBar = inject(MatSnackBar);
@@ -25,10 +26,10 @@ export class HeaderComponent {
     this.toggleDrawer.emit();
   }
 
-  logout() {
+  logout(): void {
     this.layoutService.closeDrawer();
     this.authService.logout();
-    this.snackBar.open('Logged out successfully 👋', 'Close', { duration: 3000 });
+    this.snackBar.open('Logged out successfully 👋', 'Close', {duration: 3000});
 
   }
 }

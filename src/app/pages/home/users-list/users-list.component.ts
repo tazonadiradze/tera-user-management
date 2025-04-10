@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
-  Component, computed,
+  Component,
+  computed,
   inject,
   OnInit,
   Signal,
@@ -35,13 +36,12 @@ export class UsersListComponent implements OnInit {
 
   router: Router = inject(Router)
   dialog: MatDialog = inject(MatDialog)
-  private snackBar:MatSnackBar = inject(MatSnackBar);
-
   users: WritableSignal<User[]> = signal([])
-  readonly isAdmin:Signal<boolean> = computed(():boolean => this.authService.currentRole()==='admin');
+  readonly isAdmin: Signal<boolean> = computed((): boolean => this.authService.currentRole() === 'admin');
   @ViewChild(MatSort) sort!: MatSort;
   displayedColumns: WritableSignal<string[]> = signal(['id', 'username', 'email', 'role', 'actions']);
   readonly loggedInUser = computed(() => this.authService.loggedInUser?.());
+  private snackBar: MatSnackBar = inject(MatSnackBar);
 
   ngOnInit(): void {
     this.getUsersList()
@@ -50,29 +50,24 @@ export class UsersListComponent implements OnInit {
   getUsersList(): void {
     this.userService.getUsers().subscribe({
       next: (users: User[]) => this.users.set(users),
-      error: () => this.snackBar.open('Failed to load user list', 'Close', { duration: 3000 })
+      error: () => this.snackBar.open('Failed to load user list', 'Close', {duration: 3000})
     });
   }
+
   editUser(user: User): void {
     const dialogRef: MatDialogRef<EditUserDialogComponent> = this.dialog.open(EditUserDialogComponent, {
-      width: '400px',
-      data: user,
-      disableClose: true,
-      autoFocus: true,
+      width: '400px', data: user, disableClose: true, autoFocus: true,
     });
 
     dialogRef.afterClosed().subscribe((result: User | undefined): void => {
       if (!result) return;
 
       this.userService.updateUser(result).subscribe({
-        next: ():void => {
-          this.users.update(users =>
-            users.map(u => (u.id === result.id ? result : u))
-          );
-          this.snackBar.open('User updated successfully', 'Close', { duration: 3000 });
-        },
-        error: ():void => {
-          this.snackBar.open('Failed to update user', 'Close', { duration: 3000 });
+        next: (): void => {
+          this.users.update(users => users.map(u => (u.id === result.id ? result : u)));
+          this.snackBar.open('User updated successfully', 'Close', {duration: 3000});
+        }, error: (): void => {
+          this.snackBar.open('Failed to update user', 'Close', {duration: 3000});
         }
       });
     });
@@ -80,12 +75,11 @@ export class UsersListComponent implements OnInit {
 
   deleteUser(id: number): void {
     this.userService.deleteUser(id).subscribe({
-      next: () => {
+      next: (): void => {
         this.users.update(users => users.filter(u => u.id !== id));
-        this.snackBar.open('User deleted successfully', 'Close', { duration: 3000 });
-      },
-      error: () => {
-        this.snackBar.open('Failed to delete user', 'Close', { duration: 3000 });
+        this.snackBar.open('User deleted successfully', 'Close', {duration: 3000});
+      }, error: (): void => {
+        this.snackBar.open('Failed to delete user', 'Close', {duration: 3000});
       }
     });
   }
@@ -94,9 +88,9 @@ export class UsersListComponent implements OnInit {
   viewUserDetails(user: User): void {
     this.router.navigate(['shell/user-details', user.id]).then(success => {
       if (success) {
-        this.snackBar.open(`Navigated to ${user.username}'s profile 👤`, 'Close', { duration: 3000 });
+        this.snackBar.open(`Navigated to ${user.username}'s profile 👤`, 'Close', {duration: 3000});
       } else {
-        this.snackBar.open(`Failed to navigate to ${user.username}'s profile`, 'Close', { duration: 3000 });
+        this.snackBar.open(`Failed to navigate to ${user.username}'s profile`, 'Close', {duration: 3000});
       }
     });
   }

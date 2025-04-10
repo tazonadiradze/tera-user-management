@@ -1,4 +1,4 @@
-import {computed, Injectable, Signal, signal, WritableSignal} from '@angular/core';
+import {Injectable, signal, WritableSignal} from '@angular/core';
 import {MatDrawer} from '@angular/material/sidenav';
 
 @Injectable({
@@ -6,23 +6,17 @@ import {MatDrawer} from '@angular/material/sidenav';
 })
 export class LayoutService {
 
-  constructor() { }
   private drawerRef: WritableSignal<MatDrawer | null> = signal(null);
+
+  constructor() {
+  }
 
   setDrawer(drawer: MatDrawer): void {
     this.drawerRef.set(drawer);
   }
 
-  toggleDrawer(): void {
-    this.drawerRef()?.toggle();
-  }
-
   closeDrawer(): void {
     this.drawerRef()?.close();
-  }
-
-  openDrawer(): void {
-    this.drawerRef()?.open();
   }
 
 }

@@ -12,24 +12,17 @@ export interface LoginSuccessResponse {
   token: string;
 }
 
-export interface LoginErrorResponse {
-  message: string;
-}
-
 export interface RegisterSuccessResponse {
   message: 'User registered';
   user: {
-    id: number;
-    username: string;
-    email: string;
-    password: string;
-    role: 'user';
+    id: number; username: string; email: string; password: string; role: 'user';
   };
 }
 
 export interface RegisterErrorResponse {
   message: 'Email already registered';
 }
+
 export interface ChangePasswordPayload {
   email: string;
   oldPassword?: string;

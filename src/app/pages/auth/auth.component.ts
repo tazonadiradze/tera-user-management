@@ -16,42 +16,39 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 export class AuthComponent {
 
-  authService: AuthService = inject(AuthService);
-  router: Router = inject(Router)
-  snackBar: MatSnackBar = inject(MatSnackBar);
-  private cdr = inject(ChangeDetectorRef);
-
   @ViewChild('tabGroup') tabGroup!: MatTabGroup;
+  private authService: AuthService = inject(AuthService);
+  private router: Router = inject(Router)
+  private snackBar: MatSnackBar = inject(MatSnackBar);
+  private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   onSignin(value: AuthFormValue): void {
     this.authService.login(value).subscribe({
-      next: (user: LoginSuccessResponse):void => {
+      next: (user: LoginSuccessResponse): void => {
         this.authService.setUserAfterLogin(user);
         this.router.navigate(['/shell/home']).then(success => {
           if (success) {
-            this.snackBar.open(`Welcome back, ${user.username || 'user'}! 🎉`, 'Close', { duration: 3000 });
+            this.snackBar.open(`Welcome back, ${user.username || 'user'}! 🎉`, 'Close', {duration: 3000});
           } else {
-            this.snackBar.open(`Failed to navigate to sign in`, 'Close', { duration: 3000 });
+            this.snackBar.open(`Failed to navigate to sign in`, 'Close', {duration: 3000});
           }
         });
-      },
-      error: (err):void => {
+      }, error: (err): void => {
         console.error('Login failed', err);
-        this.snackBar.open('Login failed. Please check your credentials.', 'Close', { duration: 3000 });
+        this.snackBar.open('Login failed. Please check your credentials.', 'Close', {duration: 3000});
       }
     });
   }
 
   onSignUp(value: AuthFormValue): void {
     this.authService.register(value).subscribe({
-      next: ():void => {
+      next: (): void => {
         this.tabGroup.selectedIndex = 0;
         this.cdr.markForCheck();
-        this.snackBar.open('Account created! You can now log in 🎉', 'Close', { duration: 3000 });
-      },
-      error: (err) => {
+        this.snackBar.open('Account created! You can now log in 🎉', 'Close', {duration: 3000});
+      }, error: (err) => {
         console.error('Registration failed', err);
-        this.snackBar.open('Registration failed. Please try again.', 'Close', { duration: 3000 });
+        this.snackBar.open('Registration failed. Please try again.', 'Close', {duration: 3000});
       }
     });
   }
