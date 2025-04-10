@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewChild} from '@angular/core';
 import {AuthFormComponent} from '../../shared/auth-form/auth-form.component';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {AuthService} from '../../core/services/auth.service';
@@ -19,12 +19,13 @@ export class AuthComponent {
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router)
   snackBar: MatSnackBar = inject(MatSnackBar);
+  private cdr = inject(ChangeDetectorRef);
 
   @ViewChild('tabGroup') tabGroup!: MatTabGroup;
 
   onSignin(value: AuthFormValue): void {
     this.authService.login(value).subscribe({
-      next: (user: LoginSuccessResponse) => {
+      next: (user: LoginSuccessResponse):void => {
         this.authService.setUserAfterLogin(user);
         this.router.navigate(['/shell/home']).then(success => {
           if (success) {
@@ -34,7 +35,7 @@ export class AuthComponent {
           }
         });
       },
-      error: (err) => {
+      error: (err):void => {
         console.error('Login failed', err);
         this.snackBar.open('Login failed. Please check your credentials.', 'Close', { duration: 3000 });
       }
@@ -43,8 +44,9 @@ export class AuthComponent {
 
   onSignUp(value: AuthFormValue): void {
     this.authService.register(value).subscribe({
-      next: () => {
+      next: ():void => {
         this.tabGroup.selectedIndex = 0;
+        this.cdr.markForCheck();
         this.snackBar.open('Account created! You can now log in 🎉', 'Close', { duration: 3000 });
       },
       error: (err) => {

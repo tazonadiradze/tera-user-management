@@ -25,7 +25,7 @@
       "id": 1744242001931,
       "username": "test123",
       "email": "test123@gmail.com",
-      "password": "newpassword",
+      "password": "test123",
       "role": "user"
     },
     {
@@ -61,6 +61,13 @@
       "username": "test128",
       "email": "test128@gmail.com",
       "password": "test128",
+      "role": "user"
+    },
+    {
+      "id": 1744246901029,
+      "username": "test129",
+      "email": "test129@example.com",
+      "password": "test129",
       "role": "user"
     }
   ],
