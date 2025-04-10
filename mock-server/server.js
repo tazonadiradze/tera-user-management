@@ -92,11 +92,6 @@ server.use("/products", (req, res, next) => {
     return res.status(403).json({ message: "Unauthorized" });
   }
 
-  const role = authHeader.replace("Bearer fake-jwt-token-", "");
-  // if (role !== "admin") {
-  //   return res.status(403).json({ message: "Forbidden: Admins only" });
-  // }
-
   next();
 });
 // get users
@@ -111,14 +106,59 @@ server.use("/users", (req, res, next) => {
   if (!authHeader || !authHeader.startsWith("Bearer fake-jwt-token-")) {
     return res.status(403).json({ message: "Unauthorized" });
   }
-
-  const role = authHeader.replace("Bearer fake-jwt-token-", "");
-
-  // if (role !== "admin") {
-  //   return res.status(403).json({ message: "Forbidden: Admins only" });
-  // }
-
   next();
+});
+/** 🔐 Change password endpoint */
+server.post("/changePassword", (req, res) => {
+  const { email, oldPassword, newPassword } = req.body;
+
+  if (!email || !oldPassword || !newPassword) {
+    return res.status(400).json({ message: "Missing required fields" });
+  }
+
+  const db = router.db;
+  const user = db.get("users").find({ email, password: oldPassword }).value();
+
+  if (!user) {
+    return res.status(401).json({ message: "Invalid old password or email" });
+  }
+
+  db.get("users")
+    .find({ email })
+    .assign({ password: newPassword })
+    .write();
+
+  res.status(200).json({ message: "Password changed successfully" });
+});
+
+/** 🔐 Admin password change for other users */
+server.post('/admin-changePassword', (req, res) => {
+
+  const { email, newPassword } = req.body;
+  const db = router.db;
+  const users = db.get('users').value();
+
+  let user;
+  if (Array.isArray(users)) {
+    user = users.find(u => u.email === email);
+  } else {
+    user = users[email] ? { ...users[email], email } : null;
+  }
+
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  if (Array.isArray(users)) {
+    db.get('users')
+      .find({ email })
+      .assign({ password: newPassword })
+      .write();
+  } else {
+    db.set(`users.${email}.password`, newPassword).write();
+  }
+
+  res.status(200).json({ message: 'User password updated successfully' });
 });
 
 

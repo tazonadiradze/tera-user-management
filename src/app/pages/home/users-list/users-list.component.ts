@@ -41,6 +41,7 @@ export class UsersListComponent implements OnInit {
   readonly isAdmin:Signal<boolean> = computed(():boolean => this.authService.currentRole()==='admin');
   @ViewChild(MatSort) sort!: MatSort;
   displayedColumns: WritableSignal<string[]> = signal(['id', 'username', 'email', 'role', 'actions']);
+  readonly loggedInUser = computed(() => this.authService.loggedInUser?.());
 
   ngOnInit(): void {
     this.getUsersList()
@@ -100,6 +101,11 @@ export class UsersListComponent implements OnInit {
     });
   }
 
+  getDeleteTooltip(user: User): string {
+    if (!this.isAdmin()) return 'Only admins can delete users';
+    if (user.email === this.authService.loggedInUser()?.email) return 'You cannot delete yourself';
+    return 'Delete user';
+  }
 
 }
 

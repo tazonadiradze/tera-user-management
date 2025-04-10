@@ -11,7 +11,7 @@
       "id": 1743879836574,
       "username": "tazonadiradze",
       "email": "dasdsad@gmail.com",
-      "password": "12345678",
+      "password": "newpassword",
       "role": "user"
     },
     {
@@ -19,6 +19,48 @@
       "username": "tamaznadiradze",
       "email": "tamaznadiradze@gmail.com",
       "password": "tazotazo",
+      "role": "user"
+    },
+    {
+      "id": 1744242001931,
+      "username": "test123",
+      "email": "test123@gmail.com",
+      "password": "newpassword",
+      "role": "user"
+    },
+    {
+      "id": 1744242047819,
+      "username": "test124",
+      "email": "test124@gmail.com",
+      "password": "test124",
+      "role": "user"
+    },
+    {
+      "id": 1744242060385,
+      "username": "test125",
+      "email": "test125@gmail.com",
+      "password": "test125",
+      "role": "user"
+    },
+    {
+      "id": 1744242079488,
+      "username": "test126",
+      "email": "test126@gmail.com",
+      "password": "test126",
+      "role": "user"
+    },
+    {
+      "id": 1744242092092,
+      "username": "test127",
+      "email": "test127@gmail.com",
+      "password": "test127",
+      "role": "user"
+    },
+    {
+      "id": 1744242113566,
+      "username": "test128",
+      "email": "test128@gmail.com",
+      "password": "test128",
       "role": "user"
     }
   ],

@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { AddUserComponent } from './pages/add-user/add-user.component';
 import {authGuard} from './core/guards/auth.guard';
 import {UserDetailsComponent} from './pages/home/users-list/user-details/user-details.component';
+import {SettingsComponent} from './pages/settings/settings.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +37,11 @@ export const routes: Routes = [
         path: 'user-details/:id',
         canActivate: [authGuard],
         component: UserDetailsComponent,
+      },
+      {
+        path: 'settings',
+        canActivate: [authGuard],
+        component: SettingsComponent,
       },
       {
         path: '',

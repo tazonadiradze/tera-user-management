@@ -30,3 +30,8 @@ export interface RegisterSuccessResponse {
 export interface RegisterErrorResponse {
   message: 'Email already registered';
 }
+export interface ChangePasswordPayload {
+  email: string;
+  oldPassword?: string;
+  newPassword: string;
+}

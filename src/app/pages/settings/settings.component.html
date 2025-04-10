@@ -1,0 +1,19 @@
+<mat-tab-group class="max-w-xl mx-auto mt-6">
+  <mat-tab label="Change My Password">
+    <div class="p-4">
+      <app-change-password
+        mode="changeLoggedInUserPassword"
+        (passwordChanged)="changeOwnPassword($event)"
+      ></app-change-password>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Change User's Password (Admin)" [disabled]="!isAdmin()">
+    <div class="p-4">
+      <app-change-password
+        mode="changePasswordByAdmin"
+        (passwordChanged)="changePasswordByAdmin($event)"
+      ></app-change-password>
+    </div>
+  </mat-tab>
+</mat-tab-group>

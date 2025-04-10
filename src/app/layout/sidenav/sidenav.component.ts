@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, computed, inject, Signal} from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
-import {NgIf, NgOptimizedImage} from '@angular/common';
+import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 @Component({
   selector: 'app-sidenav',
   standalone: true,
-  imports: [RouterModule, NgIf, MatButtonModule, MatListModule, MatIconModule, NgOptimizedImage, MatTooltip],
+  imports: [RouterModule, NgIf, MatButtonModule, MatListModule, MatIconModule, NgOptimizedImage, MatTooltip, NgClass],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

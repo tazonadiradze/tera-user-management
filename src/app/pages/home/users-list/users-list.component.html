@@ -49,19 +49,20 @@
     </span>
 
       <span
-        [matTooltip]="isAdmin() ? 'Delete user' : 'Only admins can delete users'"
+        [matTooltip]="getDeleteTooltip(user)"
         class="inline-block"
-        [ngClass]="{ 'cursor-not-allowed': !isAdmin() }"
+        [ngClass]="{ 'cursor-not-allowed': !isAdmin() || user.email === loggedInUser()?.email }"
       >
-      <button
-        mat-icon-button
-        color="warn"
-        [disabled]="!isAdmin()"
-        (click)="deleteUser(user.id)"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
-    </span>
+  <button
+    mat-icon-button
+    color="warn"
+    [disabled]="!isAdmin() || user.email === loggedInUser()?.email"
+    (click)="deleteUser(user.id)"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
+</span>
+
 
     </td>
   </ng-container>

@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {
-  AuthFormValue,
+  AuthFormValue, ChangePasswordPayload,
   LoginSuccessResponse,
   RegisterErrorResponse,
   RegisterSuccessResponse
@@ -63,12 +63,15 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  setUserPermissionsFromLogin(user: LoginSuccessResponse): void {
-    this.currentRole.set(user.role);
-    this.loggedInUser.set(user);
+  changeOwnPassword(payload: ChangePasswordPayload): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(this.baseUrl + 'changePassword', payload
+    );
   }
 
-  setLoggedIn(status: boolean): void {
-    this.isLoggedIn.set(status);
+  changeUserPasswordByAdmin(payload: ChangePasswordPayload): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      this.baseUrl + 'admin-changePassword',
+      payload
+    );
   }
 }

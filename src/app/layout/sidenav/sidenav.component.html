@@ -11,9 +11,7 @@
     />
   </header>
 
-  <!-- 🔗 Navigation -->
   <nav class="flex-1 p-4 space-y-1" aria-label="Main Navigation">
-    <!-- Home -->
     <button
       mat-button
       (click)="navigate('/shell/home'); closeDrawer()"
@@ -25,10 +23,11 @@
   </span>
     </button>
 
-    <div
+    <span
       matTooltip="Only accessible to admins"
       [matTooltipDisabled]="isAdmin()"
       class="w-full"
+      [ngClass]="{ 'cursor-not-allowed': !isAdmin() }"
     >
       <button
         mat-button
@@ -41,7 +40,17 @@
       <span class="text-sm">Add User</span>
     </span>
       </button>
-    </div>
+    </span>
+
+    <button
+      mat-button
+      (click)="navigate('/shell/settings'); closeDrawer()"
+      class="sidebar-button w-full px-3 py-2 transition rounded hover:bg-[#fce8f1] text-left"
+    >
+      <mat-icon class="text-base">settings</mat-icon>
+      <span class="text-sm">Settings</span>
+    </button>
+
 
 
   </nav>
