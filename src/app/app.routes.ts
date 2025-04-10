@@ -31,7 +31,8 @@ export const routes: Routes = [
       {
         path: 'adduser',
         canActivate: [authGuard],
-        component: AddUserComponent
+        loadComponent: () =>
+          import('./pages/add-user/add-user.component').then(m => m.AddUserComponent)
       },
       {
         path: 'user-details/:id',
@@ -41,7 +42,8 @@ export const routes: Routes = [
       {
         path: 'settings',
         canActivate: [authGuard],
-        component: SettingsComponent,
+        loadComponent: () =>
+          import('./pages/settings/settings.component').then(m => m.SettingsComponent)
       },
       {
         path: '',
