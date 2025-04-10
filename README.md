@@ -4,7 +4,7 @@
 
     • ✅ npm run start 
 
-    • ✅ npm run mock-server
+    • ✅ npm run mock-server - უნდა დაისტარტოს დამოუკიდებელ ტერმინალში.
 
 ✅ სატესტო მომხმარებლები:
 
