@@ -1,7 +1,19 @@
 ✅ აპლიკაციის დასტარტვა:
+
     • ✅ npm install
+
     • ✅ npm run start 
+
     • ✅ npm run mock-server
+
+✅ სატესტო მომხმარებლები:
+
+    • ✅ email: admin@gmail.com, password: admin123
+
+    • ✅ email: user@gmail.com, password: user123 
+
+    • ✅ დანარჩენ სატესტო მომხმარებლებზე ინფორმაციის ნახვა შეგიძლიათ mock-server/db.json-ში
+
 
 ✅ შესრულებული ფუნქციონალი
 1. მომხმარებილის დეშბორდი:  

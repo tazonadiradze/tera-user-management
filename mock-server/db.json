@@ -1,13 +1,6 @@
 {
   "users": [
     {
-      "id": 1,
-      "username": "admin",
-      "email": "admin@example.com",
-      "password": "admin123",
-      "role": "admin"
-    },
-    {
       "id": 1743879836574,
       "username": "tazonadiradze",
       "email": "dasdsad@gmail.com",
@@ -19,21 +12,21 @@
       "username": "tamaznadiradze",
       "email": "tamaznadiradze@gmail.com",
       "password": "tazotazo",
-      "role": "user"
+      "role": "admin"
     },
     {
       "id": 1744242001931,
       "username": "test123",
       "email": "test123@gmail.com",
       "password": "test123",
-      "role": "user"
+      "role": "admin"
     },
     {
       "id": 1744242047819,
       "username": "test124",
       "email": "test124@gmail.com",
       "password": "test124",
-      "role": "user"
+      "role": "admin"
     },
     {
       "id": 1744242060385,
@@ -65,9 +58,30 @@
     },
     {
       "id": 1744246901029,
-      "username": "test129",
-      "email": "test129@example.com",
+      "username": "test130",
+      "email": "test130@example.com",
       "password": "test129",
+      "role": "admin"
+    },
+    {
+      "username": "test131",
+      "email": "test131@gmail.com",
+      "password": "test131",
+      "role": "admin",
+      "id": 1744246901030
+    },
+    {
+      "id": 1744253470024,
+      "username": "testAdmin",
+      "email": "admin@gmail.com",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": 1744253521505,
+      "username": "testUser",
+      "email": "user@gmail.com",
+      "password": "user123",
       "role": "user"
     }
   ],
